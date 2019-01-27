@@ -45,6 +45,20 @@ def deployBeacon():
 
 def safeLand():
     pass
+def createFEAs():
+    #REQURIES HARD CODING FOR NOW
+    p1 = LocationGlobalRelative(41.714473,-86.24252,10)#make sure this matches with takeoff height
+    p2 = LocationGlobalRelative(41.714999,-86.24252,10)
+    p3 = LocationGlobalRelative(41.714799,-86.240,10)
+    p4 = LocationGlobalRelative(41.714799,-86.2418,10)
+def chooseFEA(createFEAs[]):
+    close = 100000000
+    #get closest point
+    for point in points:
+        if(close > get_distance_meters(vehicle.location.global_relative_frame,point)):
+            close =  get_distance_meters(vehicle.location.global_relative_frame,point)
+            closePoint = point
+     return closePoint
 
 def fly_to(vehicle, targetLocation, airspeed):
     print "Flying from: " + str(vehicle.location.global_relative_frame.lat) + "," + str(vehicle.location.global_relative_frame.lon) + " to " + str(targetLocation.lat) + "," + str(targetLocation.lon)
@@ -76,3 +90,14 @@ def main():
     
     safeLand()
     
+if (vehicle.mode.name=="Guided"):
+    print "Returning to Launch"
+    vehicle.mode = VehicleMode("RTL")
+
+#Close vehicle object before exiting script
+print "Close vehicle object"
+vehicle.close()
+
+# Shut down simulator if it was started.
+if sitl is not None:
+    sitl.stop()
