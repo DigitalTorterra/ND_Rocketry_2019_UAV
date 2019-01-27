@@ -131,7 +131,7 @@ def chooseFEA():
         if(close > get_distance_meters(vehicle.location.global_relative_frame,point)):
             close =  get_distance_meters(vehicle.location.global_relative_frame,point)
             closePoint = point
-     return closePoint
+    return closePoint
 
 def fly_to(vehicle, targetLocation, airspeed):
     print "Flying from: " + str(vehicle.location.global_relative_frame.lat) + "," + str(vehicle.location.global_relative_frame.lon) + " to " + str(targetLocation.lat) + "," + str(targetLocation.lon)
