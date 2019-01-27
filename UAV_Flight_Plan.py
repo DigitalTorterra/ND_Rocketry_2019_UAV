@@ -84,8 +84,8 @@ def arm_and_takeoff(aTargetAltitude):
 arm_and_takeoff(10)#hard coded takeoff height relative to take off
 
 
-def gotoFEA():
-    fly_to(vehichle, 
+def gotoFEA(vehicle,points,airspeed):
+    fly_to(vehicle,points,airspeed)
 
 def locateTarget():
     def find_cm(image):
