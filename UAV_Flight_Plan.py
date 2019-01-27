@@ -1,4 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+from dronekit import connect, VehicleMode, LocationGlobalRelative
 import numpy as np
+import time
+from math import sin, cos, sqrt, atan2, radians, sqrt
+import logging
+import time
+import os
+import time
 
 def takeOff():
     pass
@@ -35,6 +46,17 @@ def deployBeacon():
 def safeLand():
     pass
 
+def fly_to(vehicle, targetLocation, airspeed):
+    print "Flying from: " + str(vehicle.location.global_relative_frame.lat) + "," + str(vehicle.location.global_relative_frame.lon) + " to " + str(targetLocation.lat) + "," + str(targetLocation.lon)
+    vehicle.groundspeed = airspeed
+    currentTargetLocation = targetLocation
+    vehicle.simple_goto(targetLocation)
+    while True:#while (vehicle.mode.name=="Guided"):
+        remainingDistance=get_distance_meters(currentTargetLocation,vehicle.location.global_relative_frame)
+        print "Distance rem: " + str(remainingDistance)
+        if remainingDistance< 1:
+            print "Reached target"
+            break;
 
 def main():
     takeOff()
