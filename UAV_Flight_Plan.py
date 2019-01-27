@@ -108,7 +108,16 @@ def adjustPosition():
     pass
 
 def descend():
-    pass
+    for i in range(2):
+        if checkIfCentered:
+        # altitude =  vehicle.location.global_relative_frame.alt
+        # cut altitude in half
+
+        else
+        # should go back and recenter
+
+    #drop to 5 feet
+     pass
 
 def deployBeacon():
     pass
