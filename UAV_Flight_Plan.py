@@ -10,6 +10,45 @@ import logging
 import time
 import os
 import time
+import argparse
+
+def set_up():
+    parser = argparse.ArgumentParser(description='Commands vehicle using vehicle.simple_goto.')
+parser.add_argument('--connect', 
+                   help="Vehicle connection target string. If not specified, SITL automatically started and used.")
+args = parser.parse_args()
+
+connection_string = args.connect
+sitl = None
+
+
+################################################################################################
+#Start SITL if no connection string specified
+################################################################################################
+if not connection_string:
+    import dronekit_sitl
+    #sitl = dronekit_sitl.start_default()
+    #connection_string = sitl.connection_string()
+    ardupath ="/home/uav/git/ardupilot"
+    home = "41.714801,-86.241871,221,0"
+    sitl_defaults = os.path.join(ardupath, 'Tools', 'autotest', 'default_params', 'copter.parm')
+    sitl_args = ['-I{}'.format(0), '--home', home, '--model', '+', '--defaults', sitl_defaults]
+    sitl = dronekit_sitl.SITL(path=os.path.join(ardupath, 'build', 'sitl', 'bin', 'arducopter'))
+    sitl.launch(sitl_args, await_ready=True)
+
+    tcp, ip, port = sitl.connection_string().split(':')
+    port = str(int(port) + 0 * 10)
+    connection_string = ':'.join([tcp, ip, port])
+
+    #vehicle = dronekit.connect(conn_string)
+    #vehicle.wait_ready(timeout=120)
+
+################################################################################################
+# Connect to the Vehicle
+################################################################################################
+print 'Connecting to vehicle on: %s' % connection_string
+vehicle = connect(connection_string, wait_ready=False)
+vehicle.wait_ready(True,timeout=300)
 
 def arm_and_takeoff(aTargetAltitude):
     """
@@ -51,7 +90,7 @@ arm_and_takeoff(10)#hard coded takeoff height relative to take off
 
 
 def gotoFEA():
-    pass
+    fly_to(vehichle, 
 
 def locateTarget():
     def find_cm(image):
@@ -88,7 +127,8 @@ def createFEAs():
     p3 = LocationGlobalRelative(41.714799,-86.240,10)
     p4 = LocationGlobalRelative(41.714799,-86.2418,10)
     
-def chooseFEA(createFEAs[]):
+def chooseFEA():
+    createFEAs()
     close = 100000000
     #get closest point
     for point in points:
@@ -110,9 +150,12 @@ def fly_to(vehicle, targetLocation, airspeed):
             break;
 
 def main():
-    arm_and_takeoff(Altitude)
+    set_up()
+    altitude = 10 #randomly choosen
+    airspeed = 10 
+    arm_and_takeoff(altitude)
     
-    gotoFEA()
+    gotoFEA(vehicle,chooseFEA(),airspeed)
     
     centered = False
     
