@@ -11,8 +11,44 @@ import time
 import os
 import time
 
-def takeOff():
-    pass
+def arm_and_takeoff(aTargetAltitude):
+    """
+    Arms vehicle and fly to aTargetAltitude.
+    """
+
+    print "Basic pre-arm checks"
+    # Don't try to arm until autopilot is ready
+    while not vehicle.is_armable:
+        print " Waiting for vehicle to initialise..."
+        time.sleep(1)
+
+    print "home: " + str(vehicle.location.global_relative_frame.lat)
+    
+    print "Arming motors"
+    # Copter should arm in GUIDED mode
+    vehicle.mode = VehicleMode("GUIDED")
+    vehicle.armed = True    
+    print "Mode" + str(vehicle.mode)
+
+    # Confirm vehicle armed before attempting to take off
+    while not vehicle.armed:      
+        print " Waiting for arming..."
+        time.sleep(1)
+
+    print "Taking off!"
+    vehicle.simple_takeoff(aTargetAltitude) # Take off to target altitude
+
+    # Wait until the vehicle reaches a safe height before processing the goto (otherwise the command 
+    #  after Vehicle.simple_takeoff will execute immediately).
+    while True:
+        print " Altitude: ", vehicle.location.global_relative_frame.alt 
+        #Break and return from function just below target altitude.        
+        if vehicle.location.global_relative_frame.alt>=aTargetAltitude*.95: 
+            print "Reached target altitude"
+            break
+        time.sleep(1)
+arm_and_takeoff(10)#hard coded takeoff height relative to take off
+
 
 def gotoFEA():
     pass
@@ -51,6 +87,7 @@ def createFEAs():
     p2 = LocationGlobalRelative(41.714999,-86.24252,10)
     p3 = LocationGlobalRelative(41.714799,-86.240,10)
     p4 = LocationGlobalRelative(41.714799,-86.2418,10)
+    
 def chooseFEA(createFEAs[]):
     close = 100000000
     #get closest point
@@ -73,7 +110,7 @@ def fly_to(vehicle, targetLocation, airspeed):
             break;
 
 def main():
-    takeOff()
+    arm_and_takeoff(Altitude)
     
     gotoFEA()
     
