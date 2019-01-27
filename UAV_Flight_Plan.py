@@ -121,9 +121,10 @@ def createFEAs():
     p2 = LocationGlobalRelative(41.714999,-86.24252,10)
     p3 = LocationGlobalRelative(41.714799,-86.240,10)
     p4 = LocationGlobalRelative(41.714799,-86.2418,10)
+    return [p1,p2,p3,p4]
     
 def chooseFEA():
-    createFEAs()
+    points = createFEAs()
     close = 100000000
     #get closest point
     for point in points:
