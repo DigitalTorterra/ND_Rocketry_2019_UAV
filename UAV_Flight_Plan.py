@@ -108,15 +108,26 @@ def adjustPosition():
     pass
 
 def descend():
-    for i in range(2):
+    dropCount = 0;
+    while dropcount<2:
+        lat = vehicle.location.global_relative_frame.lat
+        lon = vehicle.location.global_relative_frame.lon
         if checkIfCentered:
-        # altitude =  vehicle.location.global_relative_frame.alt
-        # cut altitude in half
-
-        else
-        # should go back and recenter
-
-    #drop to 5 feet
+            new_alt = vehicle.location.global_relative_frame.alt/2 #Check to see exactly what global relative frame does and edit me
+            dropCount++;
+            
+        else:
+            new_alt = vehicle.location.global_relative_frame.alt*2 #Check to see exactly what global relative frame does and edit me
+            #add code here to recenter on the spot
+           # -
+           # -
+           # -
+       
+            dropcount--
+        
+        target_location = LocationGlobalRelative(lat,lon,new_alt)
+        vehicle.simple_goto(target_location)
+     target_location = LocationGlobalRelative(lat,lon,2) # drop drone to 2 meters  
      pass
 
 def deployBeacon():
