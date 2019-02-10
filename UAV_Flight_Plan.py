@@ -114,7 +114,7 @@ def descend():
         lon = vehicle.location.global_relative_frame.lon
         if checkIfCentered:
             new_alt = vehicle.location.global_relative_frame.alt/2 #Check to see exactly what global relative frame does and edit me
-            dropCount++;
+            dropCount += 1;
             
         else:
             new_alt = vehicle.location.global_relative_frame.alt*2 #Check to see exactly what global relative frame does and edit me
@@ -123,7 +123,7 @@ def descend():
            # -
            # -
        
-            dropcount--
+            dropcount -= 1
         
         target_location = LocationGlobalRelative(lat,lon,new_alt)
         vehicle.simple_goto(target_location)
