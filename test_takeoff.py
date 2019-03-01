@@ -58,9 +58,9 @@ def main():
     ''' Return to start location and land
     if (vehicle.mode.name=="Guided"):
         print "Returning to Launch"
-        vehicle.mode = VehicleMode("RTL") '''
+        vehicle.mode = dronekit.VehicleMode("RTL") '''
     print("Setting LAND mode...") # This allows you to land in place, even if you have moved
-    vehicle.mode = VehicleMode("LAND")
+    vehicle.mode = dronekit.VehicleMode("LAND")
 
     #Close vehicle object before exiting script
     print "Close vehicle object"
