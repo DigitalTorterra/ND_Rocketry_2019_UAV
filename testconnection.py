@@ -5,7 +5,7 @@ vehicle = dronekit.connect('/dev/serial0',baud=921600)
 print "Autopilot Firmware version: %s" % vehicle.version
 #print "Autopilot capabilities (supports ftp): %d" % vehicle.capabilities.ftp
 print "Global Location: %s" % vehicle.location.global_frame
-print "Global Location (relative altitude): %s" % vehicle.location.global_relat$
+print "Global Location (relative altitude): %s" % vehicle.location.global_relative
 print "Local Location: %s" % vehicle.location.local_frame    #NED
 print "Attitude: %s" % vehicle.attitude
 print "Velocity: %s" % vehicle.velocity
