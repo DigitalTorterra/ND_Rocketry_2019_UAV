@@ -1,4 +1,5 @@
 import dronekit
+# This call tells drone kit to look on a serial port and communicate at the baud rate 
 vehicle = dronekit.connect('/dev/serial0',baud=921600)
 # vehicle is an instance of the Vehicle class
 print "Autopilot Firmware version: %s" % vehicle.version
