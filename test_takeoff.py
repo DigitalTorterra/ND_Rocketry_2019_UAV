@@ -52,7 +52,7 @@ def main():
     except Exception as e:
         print(str(e))
            
-    altitude = 5 # Meters
+    altitude = 3 # Meters
     airspeed = 1 # Meters/second
     arm_and_takeoff(vehicle,altitude)
     ''' Return to start location and land
