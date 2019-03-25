@@ -47,7 +47,7 @@ def main():
     # Connect to the Vehicle
     ################################################################################################
     try:
-        vehicle = dronekit.connect('/dev/serial0',baud=921600)
+        vehicle = dronekit.connect('/dev/serial0',baud=57600)
         vehicle.wait_ready(True,timeout=300)
     except Exception as e:
         print(str(e))
