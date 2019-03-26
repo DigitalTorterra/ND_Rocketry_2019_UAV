@@ -9,6 +9,11 @@ from math import sin, cos, sqrt, atan2, radians, sqrt
 import logging
 import os
 
+import Target_Detection_verbose
+
+target = Target_Detection_verbose.TargetDetection()
+
+
 def arm_and_takeoff(vehicle,aTargetAltitude):
     """
     Arms vehicle and fly to aTargetAltitude.
@@ -41,6 +46,27 @@ def arm_and_takeoff(vehicle,aTargetAltitude):
             print "Reached target altitude"
             break
         time.sleep(1)
+
+def altitude_to_bounding(altitude):
+    #input-altitude
+    #output-radius of the bounding circle
+    return 5
+
+def isOnFEA(self, altitude, img):
+    #input: an image and the altitude
+    #output: returns a boolean on if the drone is over the FEA
+    #Determine if the drone is over top of the tarp
+    circle_radius = altitude_to_bounding(altitude)
+    
+    data= target.detect_target(img)
+    
+    cm = data[0]
+    
+    dist = ((cm[0]-240)**2+(cm[1]-310)**2)**.5
+    if dist < circle_radius:
+        return True
+    return False
+        
 
 def main():
     ################################################################################################
